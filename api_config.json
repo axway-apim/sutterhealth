@@ -1,0 +1,54 @@
+{
+	"name": "Patient Access",
+	"path": "/patientAccess",
+	"state": "published",
+	"version": "1.0.1",
+	"organization": "API Development",
+  "customProperties": {
+  },
+  "outboundProfiles": {
+		"_default": {
+			"requestPolicy": "",
+      "responsePolicy": ""
+		}
+	},
+  "securityProfiles": [
+     	{
+     		"name": "_default",
+     		"isDefault": true,
+		      "devices":[
+		         {
+		            "type":"oauth",
+		            "name":"OAuth",
+		            "order":1,
+		            "properties":{
+		               "tokenStore":"OAuth Access Token Store",
+		               "accessTokenLocation":"HEADER",
+		               "authorizationHeaderPrefix":"Bearer",
+		               "accessTokenLocationQueryString":"",
+		               "scopesMustMatch":"Any",
+		               "scopes":"resource.WRITE, resource.READ, resource.ADMIN",
+		               "removeCredentialsOnSuccess":true,
+		               "implicitGrantEnabled":true,
+		               "implicitGrantLoginEndpointUrl":"https://maverick.demo.axway.com:8089/api/oauth/authorize",
+		               "implicitGrantLoginTokenName":"access_token",
+		               "authCodeGrantTypeEnabled":true,
+		               "authCodeGrantTypeRequestEndpointUrl":"https://maverick.demo.axway.com:8089/api/oauth/authorize",
+		               "authCodeGrantTypeRequestClientIdName":"client_id",
+		               "authCodeGrantTypeRequestSecretName":"client_secret",
+		               "authCodeGrantTypeTokenEndpointUrl":"https://maverick.demo.axway.com:8089/api/oauth/token",
+		               "authCodeGrantTypeTokenEndpointTokenName":"access_code"
+		            }
+		         }
+		      ]
+     	}
+     ],
+	"apiDefinition": "PatientAccess.json",
+	"image": "Market.png",
+	"vhost": "phx33.demo.axway.com:8065",
+	"tags": {
+		"lob": ["sales"],
+		"asset": ["store"],
+    "product": ["petstore"]
+	}
+}

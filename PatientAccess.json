@@ -1,0 +1,2581 @@
+{
+  "swagger": "2.0",
+  "x-stoplight": {
+    "id": "yam2xcxjr5uff"
+  },
+  "info": {
+    "description": "The Patient Access API includes adjudicated claims data, encounters with capitated providers, and clinical data, including laboratory results, formulary information or information about covered outpatient drugs and preferred drug lists must be viewable to the member.\n\nClaims and Encounter data focuses on the FHIR Resources that aligns to CARIN for Blue Button implementation guide based on HL7 FHIR specification, which payers can display to consumers via a FHIR API.\nMore information on each resource's response attributes may be found in the CARIN for Blue Button HL7 FHIR specification at the link below. \n\n[https://hl7.org/fhir/us/carin-bb/STU1/index.html](https://hl7.org/fhir/us/carin-bb/STU1/index.html)\n\nClinical data focuses on the FHIR Resources that represent core clinical information for a patient. The information contained in these Resources are those frequently documented, created or retrieved by healthcare providers during the course of clinical care. Resources generated during the course of diagnostic studies can be found in the Diagnostics Module, whereas the Resources related to medication ordering and administration process can be found in the Medications Module. \n\n[https://hl7.org/fhir/us/core/STU3.1.1/index.html](https://hl7.org/fhir/us/core/STU3.1.1/index.html)",
+    "version": "R4-Sandbox",
+    "title": "Patient Access API"
+  },
+  "host": "api.healthcare.com",
+  "basePath": "/sandbox/R4/cms/patientaccess",
+  "schemes": [
+    "https"
+  ],
+  "security": [
+    {
+      "API Key": []
+    }
+  ],
+  "paths": {
+    "/Location/{locationId}": {
+      "get": {
+        "summary": "Retrieve a single Location",
+        "description": "A [US-Core-Location](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-location.html) is details and position information for a physical place where services are provided and resources and participants may be stored, found, contained, or accommodated.\n\nThe `US-Core-Location` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Location` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-location-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Location-hl7east.json.html)\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getLocationById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "Id of the Location.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Encounter": {
+      "get": {
+        "summary": "Retrieve a list of Encounter",
+        "description": "An [US-Core-Encounter](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-encounter.html) between a patient and healthcare provider(s) for the purpose of providing healthcare service(s) or assessing the health status of a patient.\n\nThe `US-Core-Encounter` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Encounter` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-encounter-definitions.html)and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.Success response will be HL7 `Bundle` with `Encounter` resource type of `US-Core-Encounter`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjyhe33wnfsgk4rnmruxeltqojuxg3jopfwwy` is ***required*** for prototyping only.",
+        "operationId": "getEncounter",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Who the encounter is for",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_id",
+            "in": "query",
+            "description": "Logical id of this artifact",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "A date within the period the Encounter lasted",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Procedure": {
+      "get": {
+        "summary": "Retrieve a list of procedure",
+        "description": "A [US-Core-Procedure](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-procedure.html) action that is or was performed on or for a patient. This can be a physical intervention like an operation, or less invasive like long term services, counseling, or hypnotherapy.\n\nThe `US-Core-Procedure` FHIR [Implementation Guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed [US-Core-Procedure](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-procedure-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) and attribute descriptions.\n\nSuccess response will be HL7 `Bundle` with `Procedure` resource type of `US-Core-Procedure`.\n\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa ` is ***required*** for prototyping only.",
+        "operationId": "getProcedure",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Search by subject - a patient",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "When the procedure was performed",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "410": {
+            "description": "Deleted resource"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "503": {
+            "description": "Service unavailable"
+          }
+        }
+      }
+    },
+    "/Coverage": {
+      "get": {
+        "summary": "Retrieve list of Coverage",
+        "description": "A [C4BB-Coverage](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Coverage.html) is the Data that reflect a payer’s coverage that was effective as of the date of service or the date of admission of the claim.\n\nThe `C4BB-Coverage` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `C4BB-Coverage` [attribute descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Coverage-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\nSuccess response will be HL7 `Bundle` with resource type of `C4BB-Coverage`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getCoverage",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "Number of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "description": "Last update date for Coverage",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_include",
+            "in": "query",
+            "description": "Include other resources",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/DiagnosticReport": {
+      "get": {
+        "summary": "Perform a search on DiagnosticReport",
+        "description": "The `US-Core-DiagnosticReport` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details of the below profiles,\n\n\n1. US-Core-DiagnosticReport-Note\n2. US-Core-DiagnosticReport-Lab\n\nA [US-Core-DiagnosticReport-Note](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-note.html) is the findings and interpretation of diagnostic tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports.\n\nReference the FHIR specification for detailed `US-Core-DiagnosticReport-Note` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-note-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html)\n\n\nA [US-Core-DiagnosticReport-Lab](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-lab.html)  Laboratory results are grouped and summarized using the DiagnosticReport resource which typically reference Observation resource(s). Each Observation resource represents an individual laboratory test and result value or component result values, or a “nested” panel (such as a microbial susceptibility panel) which references other observations. They can also be presented in report form or as free text.\n\nReference the FHIR specification for detailed `US-Core-DiagnosticReport-Lab` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-lab-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html).\n\nSuccess response will be HL7 `Bundle` with `DiagnosticReport` resource type of `US-Core-DiagnosticReport`.\n\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getDiagnosticReport",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "The subject of the report if a patient",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Which diagnostic discipline/department created the report",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The clinically relevant time of the report",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "description": "The code for the report, as opposed to codes for the atomic results, which are the names on the observation resource referred to from the result",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "410": {
+            "description": "Deleted resource"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "503": {
+            "description": "Service unavailable"
+          }
+        }
+      }
+    },
+    "/Medication/{medicationId}": {
+      "get": {
+        "summary": "Retrieve a single Medication",
+        "description": "A [US-Core-Medication](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-medication.html) resource is primarily used for the identification and definition of a medication for the purposes of prescribing, dispensing, and administering a medication as well as for making statements about medication use.\n\nThe `US-Core-Medication` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-Medication` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-medication-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Medication-uscore-med1.json.html).\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getMedicationById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "medicationId",
+            "in": "path",
+            "description": "Id of the Medication.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/AllergyIntolerance/{allergyIntoleranceId}": {
+      "get": {
+        "summary": "Retrieve a single AllergyIntolerance",
+        "description": "An [US-Core-AllergyIntolerance](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-allergyintolerance.html) is a record of a clinical assessment of an allergy or intolerance; a propensity, or a potential risk to an individual, to have an adverse reaction on future exposure to the specified substance, or class of substance.\n\nThe `US-Core-AllergyIntolerance` FHIR [Implementation Guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-AllergyIntolerance` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-allergyintolerance-definitions.html) and [Sample Response](https://www.hl7.org/fhir/us/core/STU3.1.1/AllergyIntolerance-example.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getAllergyIntoleranceById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "allergyIntoleranceId",
+            "in": "path",
+            "description": "Id of AllergyIntolerance",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Device/{deviceId}": {
+      "get": {
+        "summary": "Retrieve a single Device",
+        "description": "A [US-Core-Implantable-Device](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-implantable-device.html) is a type of a manufactured item that is used in the provision of healthcare without being substantially changed through that activity. The device may be a medical or non-medical device.\n\nThe `US-Core-Implantable-Device` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Implantable-Device` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-implantable-device-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Device-udi-1.json.html)\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getDeviceById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Id of the Device.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Organization/{organizationId}": {
+      "get": {
+        "summary": "Retrieve a single Organization",
+        "description": "A [US-Core-Organization](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization.html) is a formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action. Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, payer/insurer, etc.\n\nThe `US-Core-Organization` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Organization` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Organization-acme-lab.json.html)\n\n\n\nA [C4BB-Organization](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Organization.html) is used to convey a payer, provider, payee or service facility organization.\n\nThe `C4BB-Organization` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `C4BB-Organization` [attribute descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Organization-definitions.html) and [sample response](https://hl7.org/fhir/us/carin-bb/STU1/Organization-Payer1.json.html).\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getOrganizationById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Id of the Organization.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/CarePlan": {
+      "get": {
+        "summary": "Retrieve a list of CarePlan",
+        "description": "An [US-Core-CarePlan](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careplan.html) describes the intention of how one or more practitioners intend to deliver care for a particular patient, group or community for a period of time, possibly limited to care for a specific condition or set of conditions.\n\nThe `US-Core-CarePlan` FHIR [Implementation Guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-CarePlan` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careplan-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. Success response will be HL7 `Bundle` with `CarePlan` resource type of `US-Core-CarePlan`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getCarePlan",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Type of plan",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Who the care plan is for",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/PractitionerRole": {
+      "get": {
+        "summary": "Retrieve a list of PractitionerRole",
+        "description": "The [US-Core-PractitionerRole](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole.html) describes details about a provider, which can be a practitioner or an organization. When the provider is a practitioner, there may be a relationship to an organization. A provider renders services to patients at a location. When the provider is a practitioner, there may also be a relationship to an organization. Practitioner participation in healthcare provider insurance networks may be direct or through their role at an organization.\n\nThe `US-Core-PractitionerRole` FHIR [implementation Guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed [US-Core-PractitionerRole](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\nSuccess response will be HL7 `Bundle` with `PractitionerRole` resource type of `US-Core-PractitionerRole`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getPractitionerRole",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "practitioner",
+            "in": "query",
+            "description": "Practitioner is able to provide the defined services for the organization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "specialty",
+            "in": "query",
+            "description": "The practitioner has this specialty at an organization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/AllergyIntolerance": {
+      "get": {
+        "summary": "Retrieve a list of AllergyIntolerance",
+        "description": "An [US-Core-AllergyIntolerance](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-allergyintolerance.html) is a record of a clinical assessment of an allergy or intolerance; a propensity, or a potential risk to an individual, to have an adverse reaction on future exposure to the specified substance, or class of substance.\n\nThe `US-Core-AllergyIntolerance` FHIR [Implementation Guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed [US-Core-AllergyIntolerance](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-allergyintolerance-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. Success response will be HL7 `Bundle` with `AllergyIntolerance` resource type of `US-Core-AllergyIntolerance`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getAllergyIntolerance",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Reference of the patient",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error "
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Immunization/{immunizationId}": {
+      "get": {
+        "summary": "Retrieve a single Immunization",
+        "description": "An [US-Core-Immunization](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-immunization.html) describes the event of a patient being administered a vaccine or a record of an immunization as reported by a patient, a clinician or another party. \n\nThe `US-Core-Immunization` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Immunization` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-immunization-definitions.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/Immunization-imm-1.html).\n\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getImmunizationById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "immunizationId",
+            "in": "path",
+            "description": "Id of the US-Core-Immunization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/ExplanationOfBenefit": {
+      "get": {
+        "summary": "Perform a search on ExplanationOfBenefit",
+        "description": "The `ExplanationOfBenefit` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details of the below profiles,\n\n\n1. C4BB-ExplanationOfBenefit-Inpatient Institutional\n2. C4BB-ExplanationOfBenefit-Outpatient Institutional\n3. C4BB-ExplanationOfBenefit-Pharmacy\n4. C4BB-ExplanationOfBenefit-Professional NonClinician\n\n\nA [C4BB-ExplanationOfBenefit-Inpatient Institutional](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-ExplanationOfBenefit-Inpatient-Institutional.html) profile is used for Explanation of Benefits (EOBs) based on claims submitted by clinics, hospitals, skilled nursing facilities and other institutions for inpatient services, which may include the use of equipment and supplies, laboratory services, radiology services and other charges. Inpatient claims are submitted for services rendered at an institution as part of an overnight stay. The claims data is based on the institutional claim format UB-04, submission standards adopted by the Department of Health and Human Services.\n\nReference the FHIR specification for detailed `C4BB-ExplanationOfBenefit-Inpatient Institutional` [attribute descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-ExplanationOfBenefit-Inpatient-Institutional-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html).\n\n\n\n\nA [C4BB-ExplanationOfBenefit-Outpatient Institutional](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-ExplanationOfBenefit-Outpatient-Institutional.html) profile is used for Explanation of Benefits (EOBs) based on claims submitted by clinics, hospitals, skilled nursing facilities and other institutions for outpatient services, which may include including the use of equipment and supplies, laboratory services, radiology services and other charges. Outpatient claims are submitted for services rendered at a Institutional that are not part of an overnight stay. The claims data is based on the institutional claim form UB-04, submission standards adopted by the Department of Health and Human Services.\n\nReference the FHIR specification for detailed `C4BB-ExplanationOfBenefit-Outpatient Institutional` [attribute-descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-ExplanationOfBenefit-Outpatient-Institutional-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html).\n\n\n\n\nA [C4BB-ExplanationOfBenefit-Pharmacy](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-ExplanationOfBenefit-Pharmacy.html) profile is used for Explanation of Benefits (EOBs) based on claims submitted by retail pharmacies. The claims data is based on submission standards adopted by the Department of Health and Human Services defined by NCPDP (National Council for Prescription Drug Program)\n\nReference the FHIR specification for detailed `C4BB-ExplanationOfBenefit-Pharmacy` [attribute-descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-ExplanationOfBenefit-Pharmacy-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html).\n\n\n\n\nA [C4BB-ExplanationOfBenefit-Professional NonClinician](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-ExplanationOfBenefit-Professional-NonClinician.html) profile is used for Explanation of Benefits (EOBs) based on claims submitted by physicians, suppliers and other non-institutional providers for professional services. These services may be rendered in inpatient or outpatient, including office locations. The claims data is based on the professional claim form 1500, submission standards adopted by the Department of Health and Human Services as form CMS-1500.\n\nReference the FHIR specification for detailed `C4BB-ExplanationOfBenefit-Professional NonClinician` [attribute-descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-ExplanationOfBenefit-Professional-NonClinician-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html).\n\nSuccess response will be HL7 `Bundle` with resource type of `ExplanationOfBenefit`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getExplanationOfBenefit",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "description": "Id of ExplanationOfBenefit",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "The reference to the patient",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "description": "Last update date for ExplanationOfBenefit",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "The type of the ExplanationOfBenefit",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "description": "The business/claim identifier of the Explanation of Benefit",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "service-date",
+            "in": "query",
+            "description": "Date of the service for the EOB",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_include",
+            "in": "query",
+            "description": "Include other resource",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "410": {
+            "description": "Deleted resource"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "503": {
+            "description": "Service unavailable"
+          }
+        }
+      }
+    },
+    "/DocumentReference": {
+      "get": {
+        "summary": "Retrieve a list of DocumentReferences",
+        "description": "A [US-Core-DocumentReference](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-documentreference.html) resource is used to index a document, clinical note, and other binary objects to make them available to a healthcare system. A document is some sequence of bytes that is identifiable, establishes its own context (e.g., what subject, author, etc. can be displayed to the user), and has defined update management. The DocumentReference resource can be used with any document format that has a recognized mime type and that conforms to this definition.\n\nThe `US-Core-DocumentReference` FHIR [Implementation Guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details \n\nReference the FHIR specification for detailed `US-Core-DocumentReference` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-documentreference-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html).Success response will be HL7 `Bundle` with `DocumentReference` resource type of `US-Core-DocumentReference`.\n\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getDocumentReference",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Who this goal is intended for",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_id",
+            "in": "query",
+            "description": "Id of the Us-Core-DocumentReference",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Categorization of document",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "When this document reference was created",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Kind of document",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Provenance/{provenanceId}": {
+      "get": {
+        "summary": "Retrieve a single Provenance",
+        "description": "The [US-Core-Provenance](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-provenance.html) resource tracks information about the activity that created, revised, deleted, or signed a version of a resource, describing the entities and agents involved.\n\nThe `US-Core-Provenance` FHIR [implementation guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Provenance` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-provenance-definitions.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/Bundle-c887e62f-6166-419f-8268-b5ecd6c7b901.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getProvenanceById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "provenanceId",
+            "in": "path",
+            "description": "Id of US-Core-Provenance",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid Parameter",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorised Request"
+          },
+          "403": {
+            "description": "Insufficient Scope"
+          },
+          "404": {
+            "description": "Unknown Resource"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Patient/{patientId}": {
+      "get": {
+        "summary": "Retrieve a single Patient",
+        "description": "A [US-Core-Patient](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-patient.html) is demographics and other administrative information about an individual or animal receiving care or other health-related services.\n\nThe `US-Core-Patient` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Patient` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-patient-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Patient-example.json.html)\n\n\nA [C4BB-Patient](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Patient.html) is used to convey information about the patient who received the services described on the claim.\n\nThe `C4BB-Patient` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `C4BB-Patient` [attribute descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Patient-definitions.html) and [sample response](https://hl7.org/fhir/us/carin-bb/STU1/Patient-Patient1.json.html).\n\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getPatientById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "Id of the Patient.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Goal": {
+      "get": {
+        "summary": "Retrieve a list of Goals",
+        "description": "A [US-Core-Goal](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-goal.html) describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc..\n\nThe `US-Core-Goal` FHIR [Implementation Guide](https://hl7.org/fhir/us/core/STU3.1.1/) contains complete details \n\nReference the FHIR specification for detailed `US-Core-Goal` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-goal-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html).Success response will be HL7 `Bundle` with `Goal` resource type of `US-Core-Goal`.\n\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getGoal",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Who this goal is intended for",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/MedicationRequest": {
+      "get": {
+        "summary": "Retrieve list of Medication-Requests",
+        "description": "A [US-Core-MedicationRequest](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-medicationrequest.html) is an order or request for both supply of the medication and the instructions for administration of the medication to a patient. The resource is called \"MedicationRequest\" rather than \"MedicationPrescription\" or \"MedicationOrder\" to generalize the use across inpatient and outpatient settings, including care plans, etc., and to harmonize with workflow patterns.\n\nThe `US-Core-MedicationRequest` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed [US-Core-MedicationRequest](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-medicationrequest-definitions.html) and  [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. Success response will be HL7 `Bundle` with `MedicationRequest` resource type of `US-Core-MedicationRequest`.\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getMedicationRequest",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Returns prescriptions for a specific patient",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "intent",
+            "in": "query",
+            "description": "Whether the request is a proposal, plan, or an original order.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "A code specifying the current state of the order. Generally, this will be active or completed state.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_include",
+            "in": "query",
+            "description": "include other resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Organization": {
+      "get": {
+        "summary": "Retrieve a list of Organizations",
+        "description": "A [US-Core-Organization](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization.html) is a formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action. Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, payer/insurer, etc.\n\nThe `US-Core-Organization` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed [US-Core-Organization](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\n\nA [C4BB-Organization](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Organization.html) is used to convey a payer, provider, payee or service facility organization.\n\nThe `C4BB-Organization` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details.\n\nReference the FHIR specification for detailed [C4BB-Organization](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Organization-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\nSuccess response will be HL7 `Bundle` with `Organization` resource type of `US-Core-Organization` or `C4BB-Organization`.\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getOrganization",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "A name associated with the organization.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "description": "An address for the organization.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Immunization": {
+      "get": {
+        "summary": "Retrieve a list of Immunization",
+        "description": "An [US-Core-Immunization](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-immunization.html) describes the event of a patient being administered a vaccine or a record of an immunization as reported by a patient, a clinician or another party. \n\nThe `US-Core-Immunization` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Immunization` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-immunization-definitions.html)and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.Success response will be HL7 `Bundle` with `Immunization` resource type of `US-Core-Immunization`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for \nprototyping only.",
+        "operationId": "getImmunization",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "A patient specified in an Immunization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "revinclude other resource",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Encounter/{encounterId}": {
+      "get": {
+        "summary": "Retrieve a single Encounter",
+        "description": "An [US-Core-Encounter](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-encounter.html) between a patient and healthcare provider(s) for the purpose of providing healthcare service(s) or assessing the health status of a patient.\n\nThe `US-Core-Encounter` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Encounter` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-encounter-definitions.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/Encounter-example-1.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjyhe33wnfsgk4rnmruxeltqojuxg3jopfwwy` is ***required*** for prototyping only.",
+        "operationId": "getEncounterById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "encounterId",
+            "in": "path",
+            "description": "Id of an encounter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Practitioner/{practitionerId}": {
+      "get": {
+        "summary": "Retrieve a single Practitioner",
+        "description": "The [US-Core-Practitioner](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner.html) is a person who is directly or indirectly involved in the provisioning of healthcare.\n\nThe `US-Core-Practitioner` FHIR [implementation guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Practitioner` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Practitioner-practitioner-1.html).\n\n\nA [C4BB-Practitioner](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Practitioner.html) is used to convey information about the practitioner who provided to the patient services described on the claim.\n\nThe `C4BB-Practitioner` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `C4BB-Practitioner` [attribute descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Practitioner-definitions.html) and [sample response](https://hl7.org/fhir/us/carin-bb/STU1/Practitioner-Practitioner3.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getPractitionerById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "practitionerId",
+            "in": "path",
+            "description": "Id of the Practitioner",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Condition/{conditionId}": {
+      "get": {
+        "summary": "Retrieve a single Condition",
+        "description": "An [US-Core-Condition](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-condition.html) is a clinical condition, problem, diagnosis, or other event, situation, issue, or clinical concept that has risen to a level of concern.\n\nThe `US-Core-Condition` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Condition` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-condition-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Condition-hc1.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getConditionById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "conditionId",
+            "in": "path",
+            "description": "Id of the Condition",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/MedicationRequest/{medicationRequestId}": {
+      "get": {
+        "summary": "Retrieve a single MedicationRequest",
+        "description": "A [US-Core-MedicationRequest](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-medicationrequest.html) is an order or request for both supply of the medication and the instructions for administration of the medication to a patient. The resource is called \"MedicationRequest\" rather than \"MedicationPrescription\" or \"MedicationOrder\" to generalize the use across inpatient and outpatient settings, including care plans, etc., and to harmonize with workflow patterns.\n\nThe `US-Core-MedicationRequest` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-MedicationRequest` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-medicationrequest-definitions.html) and  [sample response](https://hl7.org/fhir/us/core/STU3.1.1/MedicationRequest-self-tylenol.json.html).\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getMedicationRequestById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "medicationRequestId",
+            "in": "path",
+            "description": "Id of the MedicationRequest.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Observation/{observationId}": {
+      "get": {
+        "summary": "Retrieve a single Observation",
+        "description": "The `Observation` FHIR [implementation guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details of the below profiles,\n\n\n1. US Core Pediatric BMI for Age Observation\n2. US Core Pediatric Weight for Height Observation\n3. US Core Pulse Oximetry\n4. US Core Smoking Status Observation\n5. US Core Laboratory Result Observation\n6. US Core Pediatric Head Occipital-frontal Circumference Percentile Profile\n\n\nThe [US Core Pediatric BMI for Age Observation](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-pediatric-bmi-for-age.html) profile sets minimum expectations for the Observation resource to record, search, and fetch pediatric body mass index (BMI) per age and gender observations associated with a patient. It is based on the FHIR Vital Signs Profile and identifies the additional mandatory core elements, extensions, vocabularies and value sets which SHALL be present in the Observation resource when using this profile.\n\nReference the FHIR specification for detailed `US Core Pediatric BMI for Age Observation` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-pediatric-bmi-for-age-definitions.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/Observation-pediatric-bmi-example.json.html)\n\n\n\nThe [US Core Pediatric Weight for Height Observation](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-pediatric-weight-for-height.html) profile sets minimum expectations for the Observation resource to record, search, and fetch pediatric weight for height and age observations associated with a patient. It is based on the FHIR Vital Signs Profile and identifies the additional mandatory core elements, extensions, vocabularies and value sets which SHALL be present in the Observation resource when using this profile.\n\nReference the FHIR specification for detailed `US Core Pediatric Weight for Height Observation` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-pediatric-weight-for-height-definitions.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/Observation-pediatric-wt-example.json.html).\n\n\n\n\nThe [US Core Pulse Oximetry](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-pulse-oximetry.html) profile sets minimum expectations for the Observation resource to record, search, and fetch pulse oximetry and inspired oxygen observations associated with a patient. It is based on the FHIR Vital Signs Profile and identifies the additional mandatory core elements, extensions, vocabularies and value sets which SHALL be present in the Observation resource when using this profile.\n\nReference the FHIR specification for detailed `US Core Pulse Oximetry` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-pulse-oximetry-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Observation-satO2-fiO2.json.html).\n\n\nThe [US Core Smoking Status Observation](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-smokingstatus.html) profile sets minimum expectations for the Observation resource to record, search, and fetch smoking status data associated with a patient. It identifies which core elements, extensions, vocabularies and value sets SHALL be present in the resource when using this profile.\n\nReference the FHIR specification for detailed `US Core Smoking Status Observation` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-smokingstatus-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Observation-some-day-smoker.json.html)\n\n\nA [US Core Laboratory Result Observation](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-observation-lab.html) is measurements and simple assertions made about a patient, device or other subject.\n\nReference the FHIR specification for detailed `US Core Laboratory Result Observation` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-observation-lab-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Observation-blood-glucose.json.html)\n\n\nAn [US Core Pediatric Head Occipital-frontal Circumference Percentile Profile] profile sets minimum expectations for the Observation resource to record, search, and fetch pediatric head occipital frontal circumference (OFC) percentile observations associated with a patients from birth to 37 Months of age. It is based on the FHIR Vital Signs Profile and identifies the additional mandatory core elements, extensions, vocabularies and value sets which SHALL be present in the Observation resource when using this profile.\n\nReference the FHIR specification for detailed [US Core Pediatric Head Occipital-frontal Circumference Percentile Profile](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-head-occipital-frontal-circumference-percentile.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/Observation-ofc-percentile.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getObservationById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "observationId",
+            "in": "path",
+            "description": "Observation Identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "invalid parameter"
+          },
+          "401": {
+            "description": "unauthorized request"
+          },
+          "403": {
+            "description": "insufficient scope"
+          },
+          "404": {
+            "description": "unknown resource"
+          },
+          "410": {
+            "description": "deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/CareTeam": {
+      "get": {
+        "summary": "Retrieve a list of CareTeam",
+        "description": "An [US-Core-CareTeam](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careteam.html) is used to people and organizations who plan to participate in the coordination and delivery of care for a patient.\n\nThe `US-Core-CareTeam` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-CareTeam` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careteam-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\nSuccess response will be HL7 `Bundle` with resource type of `US-Core-CareTeam`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getCareTeam",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "CareTeam with the specified patient",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "CareTeam with the specified status",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Medication": {
+      "get": {
+        "summary": "Retrieve list of Medication",
+        "description": "A [US-Core-Medication](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-medication.html) resource is primarily used for the identification and definition of a medication for the purposes of prescribing, dispensing, and administering a medication as well as for making statements about medication use.\n\nThe `US-Core-Medication` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-Medication` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-medication-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\nSuccess response will be HL7 `Bundle` with resource type of `US-Core-Medication`.\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getMedication",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "description": "Last update date for Medication",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "Number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Observation": {
+      "get": {
+        "summary": "Retrieve a list of Observation",
+        "description": "The `Observation` FHIR [implementation guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details of the below profiles,\n\n\n1. US Core Pediatric BMI for Age Observation\n2. US Core Pediatric Weight for Height Observation\n3. US Core Pulse Oximetry\n4. US Core Smoking Status Observation\n5. US Core Laboratory Result Observation\n6. US Core Pediatric Head Occipital-frontal Circumference Percentile Profile\n\n\nThe [US Core Pediatric BMI for Age Observation](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-pediatric-bmi-for-age.html) profile sets minimum expectations for the Observation resource to record, search, and fetch pediatric body mass index (BMI) per age and gender observations associated with a patient. It is based on the FHIR Vital Signs Profile and identifies the additional mandatory core elements, extensions, vocabularies and value sets which SHALL be present in the Observation resource when using this profile.\n\nReference the FHIR specification for detailed `US Core Pediatric BMI for Age Observation` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-pediatric-bmi-for-age-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\n\n\n\nThe [US Core Pediatric Weight for Height Observation](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-pediatric-weight-for-height.html) profile sets minimum expectations for the Observation resource to record, search, and fetch pediatric weight for height and age observations associated with a patient. It is based on the FHIR Vital Signs Profile and identifies the additional mandatory core elements, extensions, vocabularies and value sets which SHALL be present in the Observation resource when using this profile.\n\nReference the FHIR specification for detailed `US Core Pediatric Weight for Height Observation` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-pediatric-weight-for-height-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\n\n\n\nThe [US Core Pulse Oximetry](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-pulse-oximetry.html) profile sets minimum expectations for the Observation resource to record, search, and fetch pulse oximetry and inspired oxygen observations associated with a patient. It is based on the FHIR Vital Signs Profile and identifies the additional mandatory core elements, extensions, vocabularies and value sets which SHALL be present in the Observation resource when using this profile.\n\nReference the FHIR specification for detailed `US Core Pulse Oximetry` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-pulse-oximetry-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\n\nThe [US Core Smoking Status Observation](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-smokingstatus.html) profile sets minimum expectations for the Observation resource to record, search, and fetch smoking status data associated with a patient. It identifies which core elements, extensions, vocabularies and value sets SHALL be present in the resource when using this profile.\n\nReference the FHIR specification for detailed `US Core Smoking Status Observation` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-smokingstatus-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\n\nAn [US Core Laboratory Result Observation](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-observation-lab.html) is measurements and simple assertions made about a patient, device or other subject.\n\nReference the FHIR specification for detailed [US Core Laboratory Result Observation](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-observation-lab-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. \n\n\nAn [US Core Pediatric Head Occipital-frontal Circumference Percentile Profile] profile sets minimum expectations for the Observation resource to record, search, and fetch pediatric head occipital frontal circumference (OFC) percentile observations associated with a patients from birth to 37 Months of age. It is based on the FHIR Vital Signs Profile and identifies the additional mandatory core elements, extensions, vocabularies and value sets which SHALL be present in the Observation resource when using this profile.\n\nReference the FHIR specification for detailed [US Core Pediatric Head Occipital-frontal Circumference Percentile Profile](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-head-occipital-frontal-circumference-percentile.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. \n\nSuccess response will be HL7 `Bundle` with resource type of `Observation`\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getObservation",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "The classification of the type of observation",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "description": "The code of the observation type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Obtained date/time. If the obtained element is a period, a date that falls in the period",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "The subject that the observation is about (if patient)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "invalid parameter"
+          },
+          "401": {
+            "description": "unauthorized request"
+          },
+          "403": {
+            "description": "insufficient scope"
+          },
+          "404": {
+            "description": "unknown resource"
+          },
+          "410": {
+            "description": "deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/DiagnosticReport/{diagnosticReportId}": {
+      "get": {
+        "summary": "Retrieve a single Diagnostic Report",
+        "description": "The `US-Core-DiagnosticReport` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details of the below profiles,\n\n\n1. US-Core-DiagnosticReport-Note\n2. US-Core-DiagnosticReport-Lab\n\nA [US-Core-DiagnosticReport-Note](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-note.html) is the findings and interpretation of diagnostic tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports.\n\nReference the FHIR specification for detailed `US-Core-DiagnosticReport-Note` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-note-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/DiagnosticReport-cardiology-report.json.html).\n\nA [US-Core-DiagnosticReport-Lab](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-lab.html) Laboratory results are grouped and summarized using the DiagnosticReport resource which typically reference Observation resource(s). Each Observation resource represents an individual laboratory test and result value or component result values, or a “nested” panel (such as a microbial susceptibility panel) which references other observations. They can also be presented in report form or as free text. \n\nReference the FHIR specification for detailed `US-Core-DiagnosticReport-Lab` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-lab-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/DiagnosticReport-urinalysis.json.html).\n\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getDiagnosticReportById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "diagnosticReportId",
+            "in": "path",
+            "description": "Id of the DiagnosticReport",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Goal/{goalId}": {
+      "get": {
+        "summary": "Retrieve a single Goal",
+        "description": "A [US-Core-Goal](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-goal.html) describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc..\n\nThe `US-Core-Goal` FHIR [Implementation Guide](https://hl7.org/fhir/us/core/STU3.1.1/) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-Goal` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-goal-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/Goal-goal-1.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getGoalById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "goalId",
+            "in": "path",
+            "description": "Id of the US-Core-Goal",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Retrieve a list of Resource by Pagination",
+        "description": "Retrieve a list of Resource by Pagination\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getBundle",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "__id",
+            "in": "query",
+            "description": "Mock service instance Id. Required only for prototyping phase. Use value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa`.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_getpagesoffset",
+            "in": "query",
+            "description": "Page Offset",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_getpages",
+            "in": "query",
+            "description": "Page resource Bundle id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_id",
+            "in": "query",
+            "description": "A logical id of a Resource",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Provenance": {
+      "get": {
+        "summary": "Retrieve list of Provenance",
+        "description": "The [US-Core-Provenance](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-provenance.html) resource tracks information about the activity that created, revised, deleted, or signed a version of a resource, describing the entities and agents involved.\n\nThe `US-Core-Provenance` FHIR [implementation guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Provenance` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-provenance-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\nSuccess response will be HL7 `Bundle` with resource type of `US-Core-Provenance`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getProvenanceBy",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "Number of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_lastUpdated",
+            "in": "query",
+            "description": "Last update date for Provenance",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid Parameter",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorised Request"
+          },
+          "403": {
+            "description": "Insufficient Scope"
+          },
+          "404": {
+            "description": "Unknown Resource"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Device": {
+      "get": {
+        "summary": "Retrieve a list of Devices",
+        "description": "A [US-Core-Implantable-Device](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-implantable-device.html) is a type of a manufactured item that is used in the provision of healthcare without being substantially changed through that activity. The device may be a medical or non-medical device.\n\nThe `US-Core-Implantable-Device` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed [US-Core-Implantable-Device](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-implantable-device-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. Success response will be HL7 `Bundle` with `Device` resource type of `US-Core-Implantable-Device`.\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getDevice",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Patient information, If the device is affixed to a person.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Practitioner": {
+      "get": {
+        "summary": "Retrieve a list of Practitioner",
+        "description": "The [US-Core-Practitioner](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner.html) is a person who is directly or indirectly involved in the provisioning of healthcare.\n\nThe `US-Core-Practitioner` FHIR [implementation guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-Practitioner` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner-definitions.html) and\n[HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\n\nA [C4BB-Practitioner](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Practitioner.html) is used to convey information about the practitioner who provided to the patient services described on the claim.\n\nThe `C4BB-Practitioner` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `C4BB-Practitioner` [attribute descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Practitioner-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\nSuccess response will be HL7 `Bundle` with `Practitioner` resource type of `US-Core-Practitioner` or `C4BB-Practitioner`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getPractitioner",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "A server defined search that may match any of the string fields in the HumanName, including family, give, prefix, suffix, suffix, and/or text",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "description": "A practitioner's Identifier",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Coverage/{coverageId}": {
+      "get": {
+        "summary": "Retrieve a single Coverage",
+        "description": "A [C4BB-Coverage](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Coverage.html) is the Data that reflect a payer’s coverage that was effective as of the date of service or the date of admission of the claim.\n\nThe `C4BB-Coverage` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `C4BB-Coverage` [attribute descriptions](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Coverage-definitions.html) and [sample response](https://hl7.org/fhir/us/carin-bb/STU1/Coverage-Coverage1.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getCoverageById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "coverageId",
+            "in": "path",
+            "description": "Id of the Coverage",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Patient": {
+      "get": {
+        "summary": "Retrieve a list of Patient",
+        "description": "A [US-Core-Patient](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-patient.html) is demographics and other administrative information about an individual or animal receiving care or other health-related services.\n\nThe `US-Core-Patient` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed [US-Core-Patient](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-patient-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. \n\n\nA [C4BB-Patient](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Patient.html) is used to convey information about the patient who received the services described on the claim.\n\nThe `C4BB-Patient` FHIR [implementation guide](https://hl7.org/fhir/us/carin-bb/STU1/index.html) contains complete details.\n\nReference the FHIR specification for detailed [C4BB-Patient](https://hl7.org/fhir/us/carin-bb/STU1/StructureDefinition-C4BB-Patient-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions.\n\nSuccess response will be HL7 `Bundle` with `Patient` resource type of `US-Core-Patient` or `C4BB-Patient`.\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getPatient",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "description": "Logical id of this patient.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "birthdate",
+            "in": "query",
+            "description": "The date of birth for the individual.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "description": "Administrative Gender - the gender that the patient is considered to have for administration and record keeping purposes.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "description": "An identifier for this patient.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "A name associated with the individual.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/CareTeam/{careTeamId}": {
+      "get": {
+        "summary": "Retrieve a single CareTeam",
+        "description": "An [US-Core-CareTeam](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careteam.html) is used to people and organizations who plan to participate in the coordination and delivery of care for a patient.\n\nThe `US-Core-CareTeam` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-CareTeam` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careteam-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careteam.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getCareTeamById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "careTeamId",
+            "in": "path",
+            "description": "Id of the CareTeam",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Procedure/{procedureId}": {
+      "get": {
+        "summary": "Retrieve a single procedure",
+        "description": "A [US-Core-Procedure](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-procedure.html) action that is or was performed on or for a patient. This can be a physical intervention like an operation, or less invasive like long term services, counseling, or hypnotherapy.\n\nThe `US-Core-Procedure` FHIR [Implementation Guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-Procedure` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-procedure-definitions.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/Procedure-defib-implant.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getProcedureById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "procedureId",
+            "in": "path",
+            "description": "Id of Procedure.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "410": {
+            "description": "Deleted resource"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "503": {
+            "description": "Service unavailable"
+          }
+        }
+      }
+    },
+    "/CarePlan/{carePlanId}": {
+      "get": {
+        "summary": "Retrieve a single CarePlan",
+        "description": "An [US-Core-CarePlan](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careplan.html) describes the intention of how one or more practitioners intend to deliver care for a particular patient, group or community for a period of time, possibly limited to care for a specific condition or set of conditions.\n\nThe `US-Core-CarePlan` FHIR [Implementation Guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-CarePlan` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-careplan-definitions.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/CarePlan-colonoscopy.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getCarePlanById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "carePlanId",
+            "in": "path",
+            "description": "Id of CarePlan",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Condition": {
+      "get": {
+        "summary": "Retrieve a list of Conditions",
+        "description": "An [US-Core-Condition](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-condition.html) is a clinical condition, problem, diagnosis, or other event, situation, issue, or clinical concept that has risen to a level of concern.\n\nThe `US-Core-Condition` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed [US-Core-Condition](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-condition-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. Success response will be HL7 `Bundle` with `Condition` resource type of `US-Core-Condition`.\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getCondition",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "query",
+            "description": "Who has the condition",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_revinclude",
+            "in": "query",
+            "description": "reverse include the resources",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/Location": {
+      "get": {
+        "summary": "Retrieve a list of Locations",
+        "description": "A [US-Core-Location](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-location.html) is details and position information for a physical place where services are provided and resources and participants may be stored, found, contained, or accommodated.\n\nThe `US-Core-Location` FHIR [implementation guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed [US-Core-Location](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-location-definitions.html) and [HL7 Bundle](https://hl7.org/fhir/R4/bundle.html) attribute descriptions. Success response will be HL7 `Bundle` with `Location` resource type of `US-Core-Location`.\n\n**Warning:**\nAttribute `__id` with value `gi4tmotwmvzhg2lpnyxtclrqhjbu2u2dnruw42ldmfwe233dnnjwk4twmvzc44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getLocation",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name of the location as used by humans. Does not need to be unique.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "description": "Physical location.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_count",
+            "in": "query",
+            "description": "number of records",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/PractitionerRole/{practitionerRoleId}": {
+      "get": {
+        "summary": "Retrieve a single PractitionerRole",
+        "description": "The [US-Core-PractitionerRole](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole.html) describes details about a provider, which can be a practitioner or an organization. When the provider is a practitioner, there may be a relationship to an organization. A provider renders services to patients at a location. When the provider is a practitioner, there may also be a relationship to an organization. Practitioner participation in healthcare provider insurance networks may be direct or through their role at an organization.\n\nThe `US-Core-PractitionerRole` FHIR [implementation Guide](https://www.hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.\n\nReference the FHIR specification for detailed `US-Core-PractitionerRole` [attribute descriptions](https://www.hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole-definitions.html) and [sample response](https://www.hl7.org/fhir/us/core/STU3.1.1/Bundle-66c8856b-ba11-4876-8aa8-467aad8c11a2.json.html).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getPractitionerRoleById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "practitionerRoleId",
+            "in": "path",
+            "description": "Id of the US-Core-PractitionerRole",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted Resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Servcie Unavailable"
+          }
+        }
+      }
+    },
+    "/DocumentReference/{documentReferenceId}": {
+      "get": {
+        "summary": "Retrieve a single DocumentReference",
+        "description": "A [US-Core-DocumentReference](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-documentreference.html) resource is used to index a document, clinical note, and other binary objects to make them available to a healthcare system. A document is some sequence of bytes that is identifiable, establishes its own context (e.g., what subject, author, etc. can be displayed to the user), and has defined update management. The DocumentReference resource can be used with any document format that has a recognized mime type and that conforms to this definition.\n\nThe `US-Core-DocumentReference` FHIR [Implementation Guide](https://hl7.org/fhir/us/core/STU3.1.1/index.html) contains complete details.  \n\nReference the FHIR specification for detailed `US-Core-DocumentReference` [attribute descriptions](https://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-documentreference-definitions.html) and [sample response](https://hl7.org/fhir/us/core/STU3.1.1/DocumentReference-episode-summary.json.html#).\n\n**Warning:**\nAttribute `__id` with value `giztmotwmvzhg2lpnyxtclrshjygc5djmvxhillbmnzs44dsnfzw2ltznvwa` is ***required*** for prototyping only.",
+        "operationId": "getDocumentReferencelById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "documentReferenceId",
+            "in": "path",
+            "description": "Id of the US-Core-DocumentReference",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Resource Not Found"
+          },
+          "410": {
+            "description": "Deleted resource"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "API Key": {
+      "description": "API Key",
+      "type": "apiKey",
+      "name": "KeyId",
+      "in": "header"
+    }
+  }
+}
