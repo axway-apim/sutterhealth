@@ -7,10 +7,6 @@ parameters:
   displayName: API Manager Hostname
   type: string
   default: maverick.demo.axway.com
-- name: username
-  displayName: API Manager Username
-  type: string
-  default: apiadmin
 - name: returnCodeMapping
   displayName: CLI Return code mapping
   type: string
