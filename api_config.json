@@ -44,11 +44,11 @@
      	}
      ],
 	"apiDefinition": "PatientAccess.json",
-	"image": "Market.png",
+	"image": "Health.png",
 	"vhost": "phx33.demo.axway.com:8065",
 	"tags": {
-		"lob": ["sales"],
-		"asset": ["store"],
-    "product": ["petstore"]
+		"dept": ["patient"],
+		"asset": ["health"],
+    "product": ["access"]
 	}
 }
