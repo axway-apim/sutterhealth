@@ -694,7 +694,18 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "medication": {
+                  "type": "string"
+                },
+                "reaction": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad Request"
