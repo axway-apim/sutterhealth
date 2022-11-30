@@ -3,10 +3,6 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 parameters:
-- name: host
-  displayName: API Manager Hostname
-  type: string
-  default: maverick.demo.axway.com
 - name: returnCodeMapping
   displayName: CLI Return code mapping
   type: string
@@ -32,7 +28,7 @@ jobs:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'clean exec:java'
-      options: '-Dexec.args="-h ${{ parameters.host }} -u ${{ parameters.username }} -p $(password) -c api_config.json -s api-env -f true -returnCodeMapping ${{ parameters.returnCodeMapping }}"'
+      options: '-Dexec.args="-h $(host) -u $(username) -p $(password) -c api_config.json -s api-env -f true -returnCodeMapping ${{ parameters.returnCodeMapping }}"'
   - task: NodeTool@0
     inputs:
       versionSpec: '12.x'
