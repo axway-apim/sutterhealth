@@ -12,37 +12,24 @@
       "responsePolicy": ""
 		}
 	},
-  "securityProfiles": [
-     	{
-     		"name": "_default",
-     		"isDefault": true,
-		      "devices":[
-		         {
-		            "type":"oauth",
-		            "name":"OAuth",
-		            "order":1,
-		            "properties":{
-		               "tokenStore":"OAuth Access Token Store",
-		               "accessTokenLocation":"HEADER",
-		               "authorizationHeaderPrefix":"Bearer",
-		               "accessTokenLocationQueryString":"",
-		               "scopesMustMatch":"Any",
-		               "scopes":"resource.WRITE, resource.READ, resource.ADMIN",
-		               "removeCredentialsOnSuccess":true,
-		               "implicitGrantEnabled":true,
-		               "implicitGrantLoginEndpointUrl":"https://maverick.demo.axway.com:8089/api/oauth/authorize",
-		               "implicitGrantLoginTokenName":"access_token",
-		               "authCodeGrantTypeEnabled":true,
-		               "authCodeGrantTypeRequestEndpointUrl":"https://maverick.demo.axway.com:8089/api/oauth/authorize",
-		               "authCodeGrantTypeRequestClientIdName":"client_id",
-		               "authCodeGrantTypeRequestSecretName":"client_secret",
-		               "authCodeGrantTypeTokenEndpointUrl":"https://maverick.demo.axway.com:8089/api/oauth/token",
-		               "authCodeGrantTypeTokenEndpointTokenName":"access_code"
-		            }
-		         }
-		      ]
-     	}
-     ],
+  "securityProfiles":[
+      {
+         "name":"_default",
+         "isDefault":true,
+         "devices":[
+            {
+               "name":"API Key",
+               "type":"apiKey",
+               "order":0,
+               "properties":{
+                  "apiKeyFieldName":"KeyId",
+                  "takeFrom":"HEADER",
+                  "removeCredentialsOnSuccess":"true"
+               }
+            }
+         ]
+      }
+   ],
 	"apiDefinition": "PatientAccess.json",
 	"image": "Health.png",
 	"vhost": "phx33.demo.axway.com:8065",

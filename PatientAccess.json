@@ -8,7 +8,7 @@
     "version": "R4-Sandbox",
     "title": "Patient Access API"
   },
-  "host": "api.healthcare.com",
+  "host": "phx33.demo.axway.com",
   "basePath": "/sandbox/R4/cms/patientaccess",
   "schemes": [
     "https"
