@@ -417,8 +417,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "schema": {}
+            "description": "Success"
           },
           "400": {
             "description": "Bad Request"
