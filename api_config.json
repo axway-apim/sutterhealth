@@ -1,6 +1,6 @@
 {
 	"name": "Patient Access",
-	"path": "/patientAccess",
+	"path": "/patientaccess",
 	"state": "published",
 	"version": "1.0.1",
 	"organization": "API Development",

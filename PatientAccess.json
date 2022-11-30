@@ -5,11 +5,11 @@
   },
   "info": {
     "description": "The Patient Access API includes adjudicated claims data, encounters with capitated providers, and clinical data, including laboratory results, formulary information or information about covered outpatient drugs and preferred drug lists must be viewable to the member.\n\nClaims and Encounter data focuses on the FHIR Resources that aligns to CARIN for Blue Button implementation guide based on HL7 FHIR specification, which payers can display to consumers via a FHIR API.\nMore information on each resource's response attributes may be found in the CARIN for Blue Button HL7 FHIR specification at the link below. \n\n[https://hl7.org/fhir/us/carin-bb/STU1/index.html](https://hl7.org/fhir/us/carin-bb/STU1/index.html)\n\nClinical data focuses on the FHIR Resources that represent core clinical information for a patient. The information contained in these Resources are those frequently documented, created or retrieved by healthcare providers during the course of clinical care. Resources generated during the course of diagnostic studies can be found in the Diagnostics Module, whereas the Resources related to medication ordering and administration process can be found in the Medications Module. \n\n[https://hl7.org/fhir/us/core/STU3.1.1/index.html](https://hl7.org/fhir/us/core/STU3.1.1/index.html)",
-    "version": "R4-Sandbox",
+    "version": "1.2.0",
     "title": "Patient Access API"
   },
-  "host": "phx33.demo.axway.com",
-  "basePath": "/sandbox/R4/cms/patientaccess",
+  "host": "phx33.demo.axway.com:8095",
+  "basePath": "/patientaccess",
   "schemes": [
     "https"
   ],
