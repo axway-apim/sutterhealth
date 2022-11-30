@@ -725,7 +725,13 @@
                   "type": "string"
                 }
               }
-            }
+            },
+            "examples": [
+              {
+                "medication": "string",
+                "reaction": "string"
+              }
+            ]
           },
           "400": {
             "description": "Bad Request"
