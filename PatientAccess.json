@@ -584,7 +584,17 @@
                   "type": "string"
                 }
               }
-            }
+            },
+            "examples": [
+              {
+                "id": "123",
+                "type": "Demo Care"
+              },
+              {
+                "id": "223",
+                "type": "Demo 2"
+              }
+            ]
           },
           "400": {
             "description": "Bad Request"
